@@ -1,0 +1,32 @@
+{
+    "name": "neovav/internal-function-debug",
+    "type": "library",
+    "support": {
+        "issues": "https://github.com/neovav/internal-function-debug/issues",
+        "source": "https://github.com/neovav/internal-function-debug"
+    },
+    "minimum-stability": "beta",
+    "description": "Php websocket client library",
+    "keywords": [
+        "php",
+        "debug",
+        "internal function",
+        "internal function debug"
+    ],
+    "license": "Apache-2.0",
+    "require": {
+        "php": "~7.4"
+    },
+    "authors": [
+        {
+            "name": "Verveda Aleksandr",
+            "email": "neovav@outlook.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "InternalFunctionsDebug\\": "src/"
+        }
+    }
+}
