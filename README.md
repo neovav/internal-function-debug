@@ -10,3 +10,14 @@ Launch sample into samples folder
 ```bash
 php -f samples/test.php
 ```
+
+Test
+1. Goto folder test
+```bash
+cd test
+```
+
+2. Exec unit test
+```bash
+..\vendor\bin\phpunit DebugTest.php
+```
