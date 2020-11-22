@@ -2,7 +2,6 @@
 namespace Test;
 
 use InternalFunctionsDebug\Debug;
-use function InternalFunctionsDebug\template as abs;
 
 mb_internal_encoding("UTF-8");
 
@@ -16,7 +15,7 @@ class TestFunctionAbs
     }
 }
 
-Debug::setHandler('abs', function($name, $arguments, $result) {
+Debug::evalHandler('Test\abs', function($name, $arguments, $result) {
     echo "function name:\r\n";
     var_dump($name);
     echo "function arguments:\r\n";

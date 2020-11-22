@@ -3,9 +3,7 @@ namespace Test;
 
 use InternalFunctionsDebug\Debug;
 
-function abs(...$args) {return Debug::exec(__FUNCTION__, $args);}
-
-class DebugTest extends \PHPUnit\Framework\TestCase
+class DebugTest1 extends \PHPUnit\Framework\TestCase
 {
     protected $fixture;
 
@@ -21,7 +19,7 @@ class DebugTest extends \PHPUnit\Framework\TestCase
     public function tearDown(): void
     {
         $this->fixture->setValue([]);
-        self::$args = [];
+        DebugTest1::$args = [];
     }
 
     /**
@@ -36,7 +34,7 @@ class DebugTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetHandler(string $name, callable $handler, bool $isBefor, array $result)
     {
-        Debug::setHandler($name, $handler, $isBefor);
+        Debug::evalHandler("Test\\$name", $handler, $isBefor);
         $this->assertEquals($result, $this->fixture->getValue());
     }
 
@@ -61,14 +59,14 @@ class DebugTest extends \PHPUnit\Framework\TestCase
      */
     public function testExecBefor(string $name, callable $handler, int $number, array $result)
     {
-        Debug::setHandler($name, $handler, true);
+        Debug::evalHandler("Test\\$name", $handler, true);
         abs($number);
-        $this->assertEquals($result, self::$args);
+        $this->assertEquals($result, DebugTest1::$args);
     }
 
     public function providerExecBefor() {
         $handler0 = function($name, $arguments) {
-            DebugTest::$args = func_get_args();
+            DebugTest1::$args = func_get_args();
         };
         return [
             ['abs', $handler0, -7, ['abs', [-7]]],
@@ -90,14 +88,14 @@ class DebugTest extends \PHPUnit\Framework\TestCase
      */
     public function testExecAfter(string $name, callable $handler, int $number, array $result)
     {
-        Debug::setHandler($name, $handler, false);
+        Debug::evalHandler("Test\\$name", $handler, false);
         abs($number);
-        $this->assertEquals($result, self::$args);
+        $this->assertEquals($result, DebugTest1::$args);
     }
 
     public function providerExecAfter() {
         $handler0 = function($name, $arguments, $result) {
-            DebugTest::$args = func_get_args();
+            DebugTest1::$args = func_get_args();
         };
         return [
             ['abs', $handler0, -7, ['abs', [-7], 7]],
